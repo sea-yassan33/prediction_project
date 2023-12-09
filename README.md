@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 houseapp > urls.py(新規作成)
 ```
 
--プロジェクト内のurls.pyの設定変更
+- プロジェクト内のurls.pyの設定変更
 ```
 prediction_project > urls.py
 
