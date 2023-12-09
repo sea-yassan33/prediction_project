@@ -6,6 +6,22 @@
 # Pythonの導入
 
 # Djangoの導入
+- プロジェクト作成
+```
+django-admin startproject [プロジェクト名]
+```
+
+- ローカルアクセス
+```
+cd [プロジェクト名]
+python manage.py runserver
+```
+
+- urlアクセス
+```
+http://localhost:8000/
+http://localhost:8000/house/
+```
 
 # アプリの作成
 - アプリ作成
