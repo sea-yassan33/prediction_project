@@ -27,7 +27,7 @@ http://localhost:8000/house/
 - アプリ作成
 ```
 [terminal]
-python manege.py startapp [アプリケーション名]
+python manage.py startapp [アプリケーション名]
 ```
 
 - プロジェクト内に作成したアプリを登録
