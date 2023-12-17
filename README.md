@@ -63,3 +63,32 @@ path('house/', include('houseapp.urls')), //追加
 - htmlファイルに渡すデータを作成
 
 ### model
+
+# フォームの作成
+- app内にforms.pyを作成
+- imageやcsvなどのファイルを送る際は以下の設定を行う
+```
+[setting.py]
+import os #追加
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+```
+
+```
+[urls.py(プロジェクト内)]
+from django.conf import settings #追加
+from django.conf.urls.static import static #追加
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+```
+[xxx.html]
+<form method=“POST” enctype=“multipart/form-data”>
+    {% csrf_token %}
+    <input type=“file” name=“testfile”>
+    <button type=“submit”>アップロード</button>
+</form>
+```
