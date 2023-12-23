@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/style.css' %}"/>{% endblock %}
 {% block title %}PREDICTION_PROJEC_INDEX {{ block.super }}{% endblock %}
 {% block content %}
 <main class="container mt-5">
@@ -18,19 +19,19 @@
 				<div class="card-header">Categories</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-6">
-							<ul class="list-unstyled mb-0">
-								<li><a href="{% url 'house'%}">住宅価格</a></li>
-								<li><a href="#">歩行の健康度</a></li>
-								<li><a href="#">仮</a></li>
-							</ul>
+						<div class="col-sm-6 ">
+							<div class="mb-0 vstack gap-3">
+								<a href="{% url 'house'%}" class="btn btn-outline-secondary">住宅価格</a>
+								<a href="#" class="btn btn-outline-secondary">歩行の健康度</a>
+								<a href="#" class="btn btn-outline-secondary">仮</a>
+							</div>
 						</div>
 						<div class="col-sm-6">
-							<ul class="list-unstyled mb-0">
-								<li><a href="#">株価</a></li>
-								<li><a href="#">タイタニック</a></li>
-								<li><a href="#">仮</a></li>
-							</ul>
+							<div class="mb-0 vstack gap-3">
+								<a href="#" class="btn btn-outline-secondary">株価</a>
+								<a href="#" class="btn btn-outline-secondary">タイタニック</a>
+								<a href="#" class="btn btn-outline-secondary">仮</a>
+							</div>
 						</div>
 					</div>
 				</div>
