@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load humanize %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/style.css' %}"/>{% endblock %}
+{% block title %}HOUSE_PRICE_PREDICTION_LIST {{ block.super }}{% endblock %}
+{% block content %}
+<main class="container mt-5">
+	<div class="row">
+		<h1 class="fw-bolder mb-1">{{title}}</h1>
+	</div>
+	<div class="row">
+		
+	</div>
+	<hr>
+	
+</main>
+{% block js %}
+<script src="{% static 'js/house.js' %}"></script>
+{% endblock %}
+{% endblock %}

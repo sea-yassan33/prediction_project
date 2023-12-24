@@ -24,20 +24,18 @@ def house(request):
 			input_area = request.POST['area']
 			input_distance = request.POST['distance']
 			result_data = house_price_pre(df, input_area,input_distance)
-			msg = '予測出来ました。'
-		title = 'Prediction result'
+			msg = 'Made a prediction.'
 		form = HouseDateForm(request.POST)
 		submit = '再予測'
 		displayflg = 1
 	else:
-		title = 'House price prediction'
 		form = HouseDateForm()
 		submit = '予測'
 		result_data = {}
 		msg = 'test_message'
 		displayflg = 0
 	params = {
-		'title' : title,
+		'title' : '住宅価格(モデルデータセット)',
 		'form' : form,
 		'submit': submit,
 		'data': result_data,
@@ -45,3 +43,9 @@ def house(request):
 		'displayflg': displayflg,
 	}
 	return render(request, 'house.html', params)
+
+def houselist(request):
+	params = {
+		'title' : '住宅価格(予測データセット)',
+	}
+	return render(request, 'houselist.html', params)
