@@ -10,6 +10,7 @@
 	</div>
 	<div class="row">
 		<form action="{% url 'house' %}" method="post" enctype="multipart/form-data" class="col-6">
+			<h6 class="text-danger">{{errormsg}}</h6>
 			{% csrf_token %}
 			<div class="mb-4">
 				<label class="form-label">賃貸価格データ(csv)</label>

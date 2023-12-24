@@ -1,5 +1,6 @@
 # モジュールのインポート
 import math
+import os
 import pandas as pd
 # Ridge Regressionモデルクラスの読み込み
 from sklearn.linear_model import Ridge
@@ -52,3 +53,12 @@ def house_price_pre(df,input_area, input_distance):
 
 	result = {'model_ases': round(model_ases,2), 'model_ases_per': math.floor(model_ases*100),'err_range': math.floor(err_range), 'area_form': area_form, 'distance': distance, 'prediction' : math.floor(prediction)}
 	return result
+
+# ファイル形式の判定
+def path_flag(filename):
+	# ドットで分割して最後の要素が '.csv' で終わっているかどうかを確認
+	if filename.lower().endswith('.csv'):
+		file_flag = 1
+	else:
+		file_flag = 0
+	return file_flag
