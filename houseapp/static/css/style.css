@@ -1,3 +1,9 @@
 a {
 	text-decoration: none;
 }
+#pred-content-none{
+	display: none;
+}
+#pred-content-none{
+	display: initial;
+}

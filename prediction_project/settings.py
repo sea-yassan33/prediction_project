@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'django.contrib.humanize',
 	'houseapp',
 ]
 
@@ -128,3 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 # BASE_DIRはmanage.pyファイルがある場所
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# django.contrib.humanizeの桁区切り設定
+NUMBER_GROUPING = 3

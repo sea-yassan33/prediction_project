@@ -1,19 +1,95 @@
 {% extends 'base/base.html' %}
+{% load humanize %}
 {% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/style.css' %}"/>{% endblock %}
 {% block title %}HOUSE_PRICE_PREDICTION {{ block.super }}{% endblock %}
 {% block content %}
 <main class="container mt-5">
 	<div class="row">
 		<h1 class="fw-bolder mb-1">{{title}}</h1>
 	</div>
-	<form action="{% url 'house' %}" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	{{ form.testfile }}
-		<br>
-		<input type="submit" value="{{submit}}" class="btn btn-primary">
-	</form> 
+	<div class="row">
+		<form action="{% url 'house' %}" method="post" enctype="multipart/form-data" class="col-6">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<br>
+			<input type="submit" value="{{submit}}" class="btn btn-primary click-btn">
+		</form> 
+	</div>
 	<hr>
-	<h1 class="fw-bolder mb-1">{{message}}</h1>
-	
+	{% if displayflg == 0%}
+	{% else %}
+	<div id="pred-content" class="bg-secondary bg-opacity-10">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">{{message}}</h1>
+			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+		</div>
+		<div class="row">
+			<!-- 予測価格 -->
+			<div class="col-xl-4 col-md-6 mb-4">
+				<div class="card border-left-primary shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+									予測住宅価格 (円/月)</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{data.prediction|intcomma}}円</div>
+							</div>
+							<div class="col-auto">
+								<i class="bi bi-cash-coin" style="font-size: 2rem; color: cornflowerblue;"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 誤差範囲 -->
+			<div class="col-xl-4 col-md-6 mb-4">
+				<div class="card border-left-success shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+									平均絶対値誤差（MAE）</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{data.err_range|intcomma}}円</div>
+							</div>
+							<div class="col-auto">
+								<i class="fbi bi-clipboard-data-fill" style="font-size: 2rem; color: #C5ECD1;"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- モデル評価 -->
+			<div class="col-xl-4 col-md-6 mb-4">
+				<div class="card border-left-info shadow h-100 py-2">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">モデル評価
+								</div>
+								<div class="row no-gutters align-items-center">
+									<div class="col-auto">
+										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{data.model_ases}}</div>
+									</div>
+									<div class="col">
+										<div class="progress progress-sm mr-2">
+											<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="{{data.model_ases_per}}" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 </main>
+{% block js %}
+<script src="{% static 'js/house.js' %}"></script>
+{% endblock %}
 {% endblock %}
