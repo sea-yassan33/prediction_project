@@ -11,7 +11,18 @@
 	<div class="row">
 		<form action="{% url 'house' %}" method="post" enctype="multipart/form-data" class="col-6">
 			{% csrf_token %}
-			{{ form.as_p }}
+			<div class="mb-4">
+				<label class="form-label">賃貸価格データ(csv)</label>
+				{{ form.testfile }}
+			</div>
+			<div class="mb-4">
+				<label class="form-label">賃貸の広さ(㎡)</label>
+				{{ form.area }}
+			</div>
+			<div class="mb-4">
+				<label class="form-label">駅からの距離(m)</label>
+				{{ form.distance }}
+			</div>
 			<br>
 			<input type="submit" value="{{submit}}" class="btn btn-primary click-btn">
 		</form> 
