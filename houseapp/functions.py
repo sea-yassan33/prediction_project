@@ -1,6 +1,7 @@
 # モジュールのインポート
 import math
 import os
+from django.conf import settings
 import pandas as pd
 # Ridge Regressionモデルクラスの読み込み
 from sklearn.linear_model import Ridge
@@ -10,7 +11,7 @@ from sklearn.model_selection import train_test_split
 # 線形回帰で学習
 from sklearn import linear_model
 
-# 住宅価格関数
+# 住宅価格予測関数
 def house_price_pre(df,input_area, input_distance):
 	#特徴量と正解データの設定
 	## 使いたい特徴量
@@ -62,3 +63,27 @@ def path_flag(filename):
 	else:
 		file_flag = 0
 	return file_flag
+
+#住宅価格予測リスト関数
+def house_list_pre(sample_df):
+	#データの読み込みと観測
+	csv_file_path = os.path.join(settings.BASE_DIR, 'houseapp/static/data/train.csv')
+	df = pd.read_csv(csv_file_path)
+	#特徴量と正解データの設定
+	## 使いたい特徴量
+	feature_cols = ['house_area','distance']
+	## 予測したい列
+	target_col = 'rent_price'
+	x = df[feature_cols]
+	y = df[target_col]
+	# 訓練データとテストデータに8:2で分割
+	X_train, X_test, y_train, y_test = train_test_split(x, y, 	test_size=0.2, random_state=0)
+	# モデル学習
+	model = linear_model.LinearRegression()
+	model.fit(X_train, y_train)
+
+	# 学習したモデルを用いて予想
+	sample_x = sample_df[feature_cols]
+	sample_df['pred_rent_price'] = model.predict(sample_x)
+	result = sample_df[['house_area','distance','pred_rent_price']]
+	return result

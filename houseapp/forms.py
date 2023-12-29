@@ -10,4 +10,12 @@ class HouseDateForm(forms.ModelForm):
 			'area': forms.NumberInput(attrs={'class':'form-control'}),
 			'distance': forms.NumberInput(attrs={'class':'form-control'}),
 		}
-	
+
+
+class HouseListForm(forms.ModelForm):
+	class Meta:
+		model = HouseModel
+		fields = ['testfile']
+		widgets = {
+			'testfile': forms.FileInput(attrs={'class':'form-control'}),
+		}

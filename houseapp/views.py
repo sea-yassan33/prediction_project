@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from houseapp.forms import HouseDateForm
+from .forms import HouseDateForm
+from .forms import HouseListForm
 from .functions import house_price_pre
 from .functions import path_flag
+from .functions import house_list_pre
 
 # 機械学習のためのimport
 import csv,io
@@ -57,7 +59,39 @@ def house(request):
 	return render(request, 'house.html', params)
 
 def houselist(request):
+	msg = ''
+	errormsg = ''
+	displayflg = 0
+	if(request.method == 'POST'):
+		upload = HouseListForm(request.POST, request.FILES)
+		#アップロードされたファイル形式を判定
+		filename = str(request.FILES['testfile'])
+		file_flag = path_flag(filename)
+		#入力値が正しくない場合
+		if file_flag == 0:
+			errormsg = "入力値が正しくありません。"
+			result_data = {}
+			msg = 'test_message'
+		#機械学習の処理
+		elif upload.is_valid():
+			df = pd.read_csv(io.StringIO(request.FILES['testfile'].read().decode('utf-8')), delimiter=',')
+			result_data = house_list_pre(df)
+			msg = 'Made a prediction.'
+			displayflg = 1
+		submit = '再予測'
+		form = HouseListForm(request.POST, request.FILES)
+	else:
+		form = HouseListForm()
+		submit = '予測'
+		result_data = {}
+		msg = 'test_message'
 	params = {
 		'title' : '住宅価格(予測データセット)',
+		'errormsg': errormsg,
+		'form' : form,
+		'submit': submit,
+		'data': result_data,
+		'message': msg,
+		'displayflg': displayflg,
 	}
 	return render(request, 'houselist.html', params)
