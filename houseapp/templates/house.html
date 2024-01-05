@@ -1,7 +1,10 @@
 {% extends 'base/base.html' %}
 {% load humanize %}
 {% load static %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/style.css' %}"/>{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/house-style.css' %}"/>
+{% endblock %}
 {% block title %}HOUSE_PRICE_PREDICTION {{ block.super }}{% endblock %}
 {% block content %}
 <main class="container mt-5">
@@ -61,7 +64,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-									平均絶対値誤差（MAE）</div>
+									平均絶対値誤差（MAE）<i class="bi bi-question-circle tooltip-trigger" data-tooltip="{{modalMaeText}}"></i></div>
 								<div class="h5 mb-0 font-weight-bold text-gray-800">{{data.err_range|intcomma}}円</div>
 							</div>
 							<div class="col-auto">
@@ -77,8 +80,7 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">モデル評価
-								</div>
+								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">モデル評価 <i class="bi bi-question-circle tooltip-trigger" data-tooltip="{{modalR2Text}}"></i></div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
 										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{data.model_ases}}</div>
@@ -99,9 +101,17 @@
 			</div>
 		</div>
 	</div>
+	<!-- ▼▼▼ モーダル ▼▼▼ -->
+	<div id="tooltip-modal">
+		<div id="tooltip-content"></div>
+		<hr>
+		<div id="close-modal">[&times;close]</div>
+	</div>
+	<!-- ▲▲▲ モーダル ▲▲▲ -->
 	{% endif %}
 </main>
 {% block js %}
 <script src="{% static 'js/house.js' %}"></script>
+<script src="{% static 'js/house-modal.js' %}"></script>
 {% endblock %}
 {% endblock %}

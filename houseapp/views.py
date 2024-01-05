@@ -55,6 +55,8 @@ def house(request):
 		'data': result_data,
 		'message': msg,
 		'displayflg': displayflg,
+		'modalMaeText': '絶対値誤差平均（MAE：Mean Absolute Error）は、予測値と実測値の誤差の絶対値の平均である。各データに対して誤差の絶対値を取り、誤差の絶対値を合計し、最後にデータの件数で割って平均を取る。予測精度は0に近いほど高いと言える。',
+		'modalR2Text': '決定係数について<hr>【決定係数】：【精度】<br>0.8以上:非常に良い<br>0.5以上:良い<br>0.25以上:やや良い<br>0.25未満:良くない',
 	}
 	return render(request, 'house.html', params)
 
