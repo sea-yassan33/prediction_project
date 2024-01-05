@@ -3,92 +3,22 @@
 # 概要
 - 様々なモデルを使用し予測アプリを作成
 
-# Pythonの導入
+# 開発環境構築
+- [Python環境設定について](./document/01_Python環境構築.md)
+- [Pythonライブラリについて](./document/02_Pythonライブラリ.md)
+- [VScode(統合開発環境)について](./document/03_VScodeでの機能拡張.md)
 
 # Djangoの導入
-- プロジェクト作成
-```
-django-admin startproject [プロジェクト名]
-```
+- [Djangoプロジェクト作成について](./document/04_Djangoプロジェクト作成.md)
 
-- ローカルアクセス
-```
-cd [プロジェクト名]
-python manage.py runserver
-```
+# アプリ作成
+- [アプリ作成について](./document/05_アプリ作成について.md)
 
-- urlアクセス
-```
-http://localhost:8000/
-http://localhost:8000/house/
-```
+# DjangoのMVCモデル
+- [MVCモデルにつて](./document/06_MVCモデル.md)
 
-# アプリの作成
-- アプリ作成
-```
-[terminal]
-python manage.py startapp [アプリケーション名]
-```
+# フォーム作成について
+- [Djangoのフォーム作成](./document/07_フォーム作成について.md)
 
-- プロジェクト内に作成したアプリを登録
-```
-prediction_project > settings.py
-
-INSTALLED_APPS = [
-    ・・・
-	'houseapp',
-]
-```
-
-- 作成したアプリ内でurls.pyを作成
-```
-houseapp > urls.py(新規作成)
-```
-
-- プロジェクト内のurls.pyの設定変更
-```
-prediction_project > urls.py
-
-from django.urls import path, include //includeを追加
-
-path('house/', include('houseapp.urls')), //追加
-```
-
-# MVC作成手順
-### view テンプレートを作成
-- テンプレートファイルの作成
-- htmlファイルの作成
-  
-### control views.pyの修正
-- htmlファイルに渡すデータを作成
-
-### model
-
-# フォームの作成
-- app内にforms.pyを作成
-- imageやcsvなどのファイルを送る際は以下の設定を行う
-```
-[setting.py]
-import os #追加
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-```
-
-```
-[urls.py(プロジェクト内)]
-from django.conf import settings #追加
-from django.conf.urls.static import static #追加
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-```
-
-```
-[xxx.html]
-<form method=“POST” enctype=“multipart/form-data”>
-    {% csrf_token %}
-    <input type=“file” name=“testfile”>
-    <button type=“submit”>アップロード</button>
-</form>
-```
+# Pythonによる機械学習について
+- [機械学習について](./document/08_機械学習.md)
