@@ -15,7 +15,7 @@
 - [アプリ作成について](./document/05_アプリ作成について.md)
 
 # DjangoのMVCモデル
-- [MVCモデルにつて](./document/06_MVCモデル.md)
+- [MVCモデルについて](./document/06_MVCモデル.md)
 
 # フォーム作成について
 - [Djangoのフォーム作成](./document/07_フォーム作成について.md)
