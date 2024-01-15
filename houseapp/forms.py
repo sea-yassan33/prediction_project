@@ -1,5 +1,6 @@
 from django import forms
 from .models import HouseModel
+from .models import ImgUploadModel
 
 class HouseDateForm(forms.ModelForm):
 	class Meta:
@@ -19,3 +20,8 @@ class HouseListForm(forms.ModelForm):
 		widgets = {
 			'testfile': forms.FileInput(attrs={'class':'form-control'}),
 		}
+
+class ImgUploadForm(forms.ModelForm):
+	class Meta:
+		model = ImgUploadModel
+		fields = ['image']

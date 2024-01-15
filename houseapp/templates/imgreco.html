@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load humanize %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/style.css' %}"/>{% endblock %}
+{% block title %}OBJECT DETECTION APP {{ block.super }}{% endblock %}
+{% block content %}
+<main class="row ">
+	<div class="col-lg-2 mh-100 d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
+		<h3>dashboard</h3>
+	</div>
+	<div class="col-lg-10 ms-sm-auto px-md-4">
+		<div class="row">
+			<h2>{{title}}</h2>
+			<form action="{% url 'recimg' %}" method="post" enctype="multipart/form-data" class="col-6">
+				<h6 class="text-danger">{{errormsg}}</h6>
+				{% csrf_token %}
+				{{form.as_p}}
+				<br>
+				<input type="submit" value="{{submit}}" class="btn btn-warning click-btn">
+			</form> 
+		</div>
+		<hr>
+		{% if displayflg == 0%}
+		{% else %}
+		<h2>予測結果</h2>
+		<div>
+			<h4>アップロード画像</h4>
+			<img src="data:image/png;base64,{{ imgdata }}" alt="Uploaded Image">
+			<hr>
+			<h4>物体検知画像</h4>
+		</div>
+		{% endif %}
+	</div>
+</main>
+{% endblock %}

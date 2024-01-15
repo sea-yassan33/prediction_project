@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import HouseDateForm
 from .forms import HouseListForm
+from .forms import ImgUploadForm
 from .functions import house_price_pre
 from .functions import path_flag
 from .functions import house_list_pre
@@ -11,6 +12,7 @@ from .functions import house_list_pre
 import csv,io
 import math
 import pandas as pd
+import base64
 
 def index(request):
 	params = {
@@ -97,3 +99,31 @@ def houselist(request):
 		'displayflg': displayflg,
 	}
 	return render(request, 'houselist.html', params)
+
+def imgReco(request):
+	msg = ''
+	errormsg = ''
+	image_data = ''
+	result_data = ''
+	displayflg = 0
+	submit = ''
+	if(request.method == 'POST'):
+		form = ImgUploadForm(request.POST, request.FILES)
+		if form.is_valid():
+			image_data = base64.b64encode(request.FILES['image'].read()).decode('utf-8')
+			displayflg = 1
+			submit = '再予測'
+	else:
+		form = ImgUploadForm()
+		submit = '再予測'
+	params = {
+		'title' : '物体検知',
+		'errormsg': errormsg,
+		'form' : form,
+		'submit': submit,
+		'imgdata': image_data,
+		'imgresalt': result_data,
+		'message': msg,
+		'displayflg': displayflg,
+	}
+	return render(request, 'imgreco.html', params)
