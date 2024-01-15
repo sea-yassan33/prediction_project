@@ -17,9 +17,11 @@ pip install django
 pip install numpy
 pip install pandas
 pip install scikit-learn
-pip install matplotlib
+pip install ultralytics
 pip install japanize-matplotlib 
 pip install jupyter
+
+「pip install matplotlib」 はultralyticsでインストールされる為不要
 ```
 
 ## インストール済みライブラリの一覧表示
