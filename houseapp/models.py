@@ -7,4 +7,4 @@ class HouseModel(models.Model):
 	distance = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99999)])
 
 class ImgUploadModel(models.Model):
-	image = models.ImageField(upload_to='uploads/', null=True, blank=True)
+	image = models.ImageField(upload_to='uploads/', null=False, blank=False)
