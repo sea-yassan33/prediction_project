@@ -10,6 +10,13 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 # 線形回帰で学習
 from sklearn import linear_model
+#物体検知インポート
+import cv2
+import numpy as np
+from PIL import Image
+from ultralytics import YOLO
+from io import BytesIO
+import base64
 
 # 住宅価格予測関数
 def house_price_pre(df,input_area, input_distance):
@@ -87,3 +94,32 @@ def house_list_pre(sample_df):
 	sample_df['pred_rent_price'] = model.predict(sample_x)
 	result = sample_df[['house_area','distance','pred_rent_price']]
 	return result
+
+#物体検知
+def obj_detec(img):
+	#imgを配列化
+	img_np = np.array(img)
+	#画像をRGB形式に変換
+	img_rgb = cv2.cvtColor(img_np, cv2.COLOR_BGR2RGB)
+	model = YOLO('yolov8n.pt')
+	img_model = model(img_rgb,conf=0.5)
+	img_result_array = cv2.cvtColor(img_model[0].plot(labels=True, conf=True), cv2.COLOR_BGR2RGB)
+	# 配列を画像に変換(fromarray)
+	img_result = Image.fromarray(img_result_array)
+	# 画像の色空間を変換（BGRからRGBに）
+	img_result = img_result.convert('RGB')
+	# 画像をBytesIOに保存
+	img_result_io = BytesIO()
+	img_result.save(img_result_io,format='PNG')
+	# BytesIOの内容をBase64エンコード
+	img_result_base64 = base64.b64encode(img_result_io.getvalue()).decode('utf-8')
+	return img_result_base64
+
+# ファイル形式の判定
+def img_flag(filename):
+	# ドットで分割して最後の要素が '.csv' で終わっているかどうかを確認
+	if filename.lower().endswith('.png') or filename.lower().endswith('.jpg'):
+		file_flag = 1
+	else:
+		file_flag = 0
+	return file_flag

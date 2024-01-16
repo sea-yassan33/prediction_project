@@ -6,13 +6,16 @@ from .forms import HouseListForm
 from .forms import ImgUploadForm
 from .functions import house_price_pre
 from .functions import path_flag
+from .functions import img_flag
 from .functions import house_list_pre
+from .functions import obj_detec
 
 # 機械学習のためのimport
 import csv,io
 import math
 import pandas as pd
 import base64
+from PIL import Image
 
 def index(request):
 	params = {
@@ -109,10 +112,20 @@ def imgReco(request):
 	submit = ''
 	if(request.method == 'POST'):
 		form = ImgUploadForm(request.POST, request.FILES)
-		if form.is_valid():
+		#アップロードされたファイル形式を判定
+		filename = str(request.FILES['image'])
+		file_flag = img_flag(filename)
+		#入力値が正しくない場合
+		if file_flag == 0:
+			errormsg = "png形式もしくはjpg形式をアップロードして下さい。"
+			result_data = {}
+			msg = 'test_message'
+		elif form.is_valid():
 			image_data = base64.b64encode(request.FILES['image'].read()).decode('utf-8')
+			img = Image.open(request.FILES['image'])
+			result_data = obj_detec(img)
 			displayflg = 1
-			submit = '再予測'
+		submit = '再予測'
 	else:
 		form = ImgUploadForm()
 		submit = '再予測'
