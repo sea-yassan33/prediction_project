@@ -25,3 +25,6 @@ class ImgUploadForm(forms.ModelForm):
 	class Meta:
 		model = ImgUploadModel
 		fields = ['image']
+		widgets = {
+			'image': forms.ClearableFileInput(attrs={'class':'form-control'}),
+		}

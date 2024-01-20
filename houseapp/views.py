@@ -9,20 +9,20 @@ from .functions import path_flag
 from .functions import img_flag
 from .functions import house_list_pre
 from .functions import obj_detec
-
 # 機械学習のためのimport
-import csv,io
-import math
+import io
 import pandas as pd
 import base64
 from PIL import Image
 
+#index
 def index(request):
 	params = {
 		'title' : 'Table Of Contents',
 	}
 	return render(request, 'index.html', params)
 
+#住宅価格(モデルデータセット)
 def house(request):
 	msg = ''
 	errormsg = ''
@@ -34,13 +34,14 @@ def house(request):
 		#アップロードされたファイル形式を判定
 		filename = str(request.FILES['testfile'])
 		file_flag = path_flag(filename)
-		#入力値が正しくない場合
+		#入力値のチェック
 		if input_area <= 0 or input_area >= 10000 or input_distance <= 0 or input_distance >= 100000 or file_flag == 0:
+			#入力値が規定範囲外、もしくはfile_flagが0の場合
 			errormsg = "入力値が正しくありません。"
 			result_data = {}
 			msg = 'test_message'
-		#機械学習の処理
 		elif upload.is_valid():
+			#機械学習の処理
 			df = pd.read_csv(io.StringIO(request.FILES['testfile'].read().decode('utf-8')), delimiter=',')
 			result_data = house_price_pre(df, input_area,input_distance)
 			msg = 'Made a prediction.'
@@ -65,6 +66,7 @@ def house(request):
 	}
 	return render(request, 'house.html', params)
 
+# 住宅価格(予測データセット)
 def houselist(request):
 	msg = ''
 	errormsg = ''
@@ -74,13 +76,13 @@ def houselist(request):
 		#アップロードされたファイル形式を判定
 		filename = str(request.FILES['testfile'])
 		file_flag = path_flag(filename)
-		#入力値が正しくない場合
 		if file_flag == 0:
+			#ファイル形式が正しくない場合
 			errormsg = "入力値が正しくありません。"
 			result_data = {}
 			msg = 'test_message'
-		#機械学習の処理
 		elif upload.is_valid():
+			#機械学習の処理
 			df = pd.read_csv(io.StringIO(request.FILES['testfile'].read().decode('utf-8')), delimiter=',')
 			result_data = house_list_pre(df)
 			msg = 'Made a prediction.'
@@ -103,6 +105,7 @@ def houselist(request):
 	}
 	return render(request, 'houselist.html', params)
 
+#物体検知
 def imgReco(request):
 	msg = ''
 	errormsg = ''
@@ -115,20 +118,24 @@ def imgReco(request):
 		#アップロードされたファイル形式を判定
 		filename = str(request.FILES['image'])
 		file_flag = img_flag(filename)
-		#入力値が正しくない場合
 		if file_flag == 0:
+			#ファイル形式が正しくない場合
 			errormsg = "png形式もしくはjpg形式をアップロードして下さい。"
 			result_data = {}
 			msg = 'test_message'
 		elif form.is_valid():
+			#機械学習実施
+			#アップロードされた画像をBase64文字列に変換
 			image_data = base64.b64encode(request.FILES['image'].read()).decode('utf-8')
+			#アップロードされた画像を機械学習用に取り込む
 			img = Image.open(request.FILES['image'])
+			#物体検知処理
 			result_data = obj_detec(img)
 			displayflg = 1
 		submit = '再予測'
 	else:
 		form = ImgUploadForm()
-		submit = '再予測'
+		submit = '予測'
 	params = {
 		'title' : '物体検知',
 		'errormsg': errormsg,

@@ -59,6 +59,7 @@ def house_price_pre(df,input_area, input_distance):
 	# 予測された値を取り出す
 	prediction = df_form.loc[0, 'pred_rent_price']
 
+	#予測結果をresultへ詰める
 	result = {'model_ases': round(model_ases,2), 'model_ases_per': math.floor(model_ases*100),'err_range': math.floor(err_range), 'area_form': area_form, 'distance': distance, 'prediction' : math.floor(prediction)}
 	return result
 
