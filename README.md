@@ -1,7 +1,17 @@
 # プロジェクト名：　prediction_project
 
 # 概要
-- 様々なモデルを使用し予測アプリを作成
+![Alt text](./document/img/img17.png)
+```
+様々なモデルを使用し予測アプリを作成
+```
+### アプリ機能面について
+
+![Alt text](./document/img/img16.png)
+- [賃貸価格(モデルデータセット)](./notoboke/housing_model.ipynb)
+- [賃貸価格(予測データセット)]()
+- [物体検知アプリ]()
+
 
 # 開発環境構築
 - [Python環境設定について](./document/01_Python環境構築.md)

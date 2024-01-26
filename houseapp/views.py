@@ -22,7 +22,7 @@ def index(request):
 	}
 	return render(request, 'index.html', params)
 
-#住宅価格(モデルデータセット)
+#賃貸価格(モデルデータセット)
 def house(request):
 	msg = ''
 	errormsg = ''
@@ -54,7 +54,7 @@ def house(request):
 		result_data = {}
 		msg = 'test_message'
 	params = {
-		'title' : '住宅価格(モデルデータセット)',
+		'title' : '賃貸価格(モデルデータセット)',
 		'errormsg': errormsg,
 		'form' : form,
 		'submit': submit,
@@ -66,7 +66,7 @@ def house(request):
 	}
 	return render(request, 'house.html', params)
 
-# 住宅価格(予測データセット)
+# 賃貸価格(予測データセット)
 def houselist(request):
 	msg = ''
 	errormsg = ''
@@ -95,7 +95,7 @@ def houselist(request):
 		result_data = {}
 		msg = 'test_message'
 	params = {
-		'title' : '住宅価格(予測データセット)',
+		'title' : '賃貸価格(予測データセット)',
 		'errormsg': errormsg,
 		'form' : form,
 		'submit': submit,

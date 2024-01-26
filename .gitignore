@@ -1,3 +1,5 @@
-notoboke/data/
+notoboke/data/sample.csv
+notoboke/data/train.csv
+notoboke/data/img01.png
 houseapp/static/data/
 /notoboke/yolov8n.pt
