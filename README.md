@@ -10,7 +10,7 @@
 ![Alt text](./document/img/img16.png)
 - [賃貸価格(モデルデータセット)](./notoboke/housing_model.ipynb)
 - [賃貸価格(予測データセット)](./notoboke/housing_list.ipynb)
-- [物体検知アプリ]()
+- [物体検知アプリ](./notoboke/obj_detection.ipynb)
 - 歩行の健康度(作成中)
 - タイタニック(作成中)
 - 仮（模索中...）
